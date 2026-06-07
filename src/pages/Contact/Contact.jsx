@@ -16,7 +16,7 @@ export default function Contact() {
     if (errors[e.target.name]) setErrors({ ...errors, [e.target.name]: false })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     const required = ['prenom', 'nom', 'email', 'interet', 'message']
@@ -30,12 +30,21 @@ export default function Contact() {
 
     setLoading(true)
 
-    // TODO: brancher Resend ou Formspree ici
-    // fetch('/api/contact', { method: 'POST', body: JSON.stringify(form) })
-    setTimeout(() => {
-      setLoading(false)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+
+      if (!res.ok) throw new Error('Erreur serveur')
+
       setSent(true)
-    }, 1200)
+    } catch (err) {
+      alert('Une erreur est survenue, veuillez réessayer.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
