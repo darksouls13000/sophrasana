@@ -27,7 +27,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Site Clara Hédoux <onboarding@resend.dev>',
+        from: 'Site Clara Hédoux <contact@sophrasana.fr>',
         to: 'clara.h.sophrologue@gmail.com',
         reply_to: email,
         subject: `Nouvelle demande de ${prenom} ${nom} — ${interetLabels[interet] || interet}`,
